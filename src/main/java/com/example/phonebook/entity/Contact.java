@@ -16,10 +16,10 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false)
     private String surname;
 
     @Column(nullable = false, unique = true)
