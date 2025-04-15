@@ -196,7 +196,7 @@ export default {
       surname: "",
       phone: "",
       service: new PhoneBookService(),
-      contactsToDelete: [],
+      contactToDeleteIds: [],
       isValidName: true,
       isValidSurname: true,
       isValidPhone: true,
@@ -256,31 +256,29 @@ export default {
     },
 
     showDeleteContactConfirmModal(contact) {
-      this.contactsToDelete = [contact];
+      this.contactToDeleteIds = [contact.id];
 
       this.$refs.deleteContactConfirmModal.show("Вы действительно хотите удалить выбранный контакт?");
     },
 
     showDeleteCheckedContactsConfirmModal() {
-      this.contactsToDelete = this.checkedContacts;
+      this.checkedContacts.forEach(contact => this.contactToDeleteIds.push(contact.id))
 
       this.$refs.deleteContactConfirmModal.show("Вы действительно хотите удалить выбранные контакты?");
     },
 
     deleteContacts() {
-      this.contactsToDelete.forEach(c => {
-        this.service.deleteContact(c.id).then(response => {
-          if (!response.success) {
-            this.$refs.errorConfirmModal.show(response.message);
-            return;
-          }
+      this.service.deleteContact(this.contactToDeleteIds).then(response => {
+        if (!response.success) {
+          this.$refs.errorConfirmModal.show(response.message);
+          return;
+        }
 
-          this.loadContacts();
-        }).catch(() => this.$refs.errorConfirmModal.show("Не удалось удалить контакты"))
-      });
+        this.loadContacts();
+      }).catch(() => this.$refs.errorConfirmModal.show("Не удалось удалить контакты"))
 
       this.$refs.deleteContactConfirmModal.hide();
-      this.contactsToDelete = [];
+      this.contactToDeleteIds = [];
       this.allChecked = false;
     },
 

@@ -10,8 +10,12 @@ function executePost(url, data) {
     return axios.post(url, data).then(response => response.data);
 }
 
-function executeDelete(url) {
-    return axios.delete(url).then(response => response.data);
+function executeDelete(url, data) {
+    return axios.delete(url,{
+        params: {
+            ids: data.join(',')
+        }
+    }).then(response => response.data);
 }
 
 function executePut(url, data) {
@@ -31,8 +35,8 @@ export default class PhoneBookService {
         return executePost(this.baseUrl, contact);
     }
 
-    deleteContact(id) {
-        return executeDelete(`${this.baseUrl}/${id}`);
+    deleteContact(contactIds) {
+        return executeDelete(this.baseUrl, contactIds);
     }
 
     saveContact(contact) {

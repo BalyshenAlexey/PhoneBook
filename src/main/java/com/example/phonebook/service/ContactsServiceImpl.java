@@ -36,8 +36,11 @@ public class ContactsServiceImpl implements ContactsService {
     }
 
     @Override
-    public BaseResponse deleteContact(int id) {
-        contactsRepository.deleteById(id);
+    public BaseResponse deleteContact(String[] ids) {
+        for (String id : ids) {
+            contactsRepository.deleteById(Integer.parseInt(id));
+        }
+
         return BaseResponse.getSuccessResponse();
     }
 
@@ -69,10 +72,6 @@ public class ContactsServiceImpl implements ContactsService {
 
         if (contact.getPhone() == null || contact.getPhone().isEmpty()) {
             return "Поле \"Номер телефона\" обязательно для заполнения";
-        }
-
-        if (contactsRepository.existsByPhone(contact.getPhone())) {
-            return "Пользователь с таким номером уже существует";
         }
 
         return null;

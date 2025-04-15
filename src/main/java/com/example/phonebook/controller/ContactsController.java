@@ -9,6 +9,7 @@ import com.example.phonebook.service.ContactsService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 @RestController
@@ -31,9 +32,9 @@ public class ContactsController {
         return contactsService.createContact(contact);
     }
 
-    @DeleteMapping("/{id}")
-    public BaseResponse deleteContact(@PathVariable int id) {
-        return contactsService.deleteContact(id);
+    @DeleteMapping()
+    public BaseResponse deleteContact(@RequestParam String ids) {
+        return contactsService.deleteContact(ids.split(","));
     }
 
     @PutMapping

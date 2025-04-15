@@ -8,6 +8,4 @@ import java.util.List;
 public interface ContactsRepository extends JpaRepository<Contact, Integer> {
 
     List<Contact> findByNameOrSurnameOrPhoneContaining(String name, String surname, String phone);
-
-    boolean existsByPhone(String phone);
 }

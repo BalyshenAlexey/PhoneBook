@@ -10,7 +10,7 @@ public interface ContactsService {
 
     BaseResponse createContact(Contact contact);
 
-    BaseResponse deleteContact(int id);
+    BaseResponse deleteContact(String [] ids);
 
     BaseResponse saveContact(Contact contact);
 }
