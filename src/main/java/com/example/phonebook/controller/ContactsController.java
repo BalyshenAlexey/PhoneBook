@@ -9,7 +9,6 @@ import com.example.phonebook.service.ContactsService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 @RestController
